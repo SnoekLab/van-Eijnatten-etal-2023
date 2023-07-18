@@ -4,6 +4,13 @@ library(cowplot)
 library(tidyverse)
 library(viridis)
 
+
+## Figure 1: Developmental age estimation using PCA. 
+    ## A) PCA 
+    ## B) Gene expression of the 53 developmental indicator genes from Snoek et al., 2014 
+    ##    with expression in this dataset  
+
+
 # Import marker and fpkm data. 
 load(file="~/Documents/elegans/data/obj_FourP_2022.out") # Is this one used in this script? 
 load(file="~/Documents/elegans/data/obj_fpkm.out") # should we add this as supplement?
@@ -17,6 +24,7 @@ use.rge <- fpkm$fpkm[fpkm.selc,]
 #Take log2 ratio of mean.
 ruse.rge <- log2((use.rge+1)/apply(use.rge+1,1,mean))
 
+### Panel A) --------------------------------------------------------------------
 # Do pca on ruse.rge, and get the loadings of the samples on the first two principal components.
 pco <- prcomp((ruse.rge))
 pco1 <- -pco$rotation[,1]
@@ -96,6 +104,7 @@ dev_frame_long <- dev_frame %>% pivot_longer(cols = -c(54), names_to = "Gene",va
 pc1load <- topl[as.character(dev_frame_long$mpRIL),"pco1"]
 for.line <- data.frame(dev_frame_long,pc1load) 
 
+### Panel B) --------------------------------------------------------------------
 ### Make line figure
 
 line.fig <- ggplot(for.line,aes(x = pc1load,y = Gexpr, col= Gene)) +
