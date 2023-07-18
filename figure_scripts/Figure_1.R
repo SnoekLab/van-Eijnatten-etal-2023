@@ -5,8 +5,8 @@ library(tidyverse)
 library(viridis)
 
 # Import marker and fpkm data. 
-load(file="~/Documents/elegans/data/obj_FourP_2022.out") 
-load(file="~/Documents/elegans/data/obj_fpkm.out")
+load(file="~/Documents/elegans/data/obj_FourP_2022.out") # Is this one used in this script? 
+load(file="~/Documents/elegans/data/obj_fpkm.out") # should we add this as supplement?
 
 # Filter for mean samples fpkm > 1/32 and more than 20 samples have > 0 fpkm.
 fpkm.selc <- apply(log2(fpkm$fpkm),1,mean)> -5 & apply(fpkm$fpkm>0,1,sum)>20 
